@@ -13,8 +13,6 @@ module Administrate
       if @term.blank?
         @scoped_resource.all
       else
-        puts search_terms
-        puts search_terms.count
         @scoped_resource.joins(tables_to_join).where(query, *search_terms)
       end
     end
