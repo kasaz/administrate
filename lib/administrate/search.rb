@@ -31,7 +31,12 @@ module Administrate
     def query_for_attribute(attribute, field)
       attribute_class =
           if attribute.is_a?(Administrate::Field::Deferred)
-            attribute.deferred_class
+            # HACK: make search work for belongs_to attribute searching by id
+            if attribute.searchable_field == :id
+              Administrate::Field::Number
+            else
+              attribute.deferred_class
+            end
           else
             attribute.class
           end
